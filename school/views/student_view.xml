@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="school_student_action" model="ir.actions.act_window">
+        <field name="name">Student</field>
+        <field name="res_model">school.student</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p>Cliquez sur nouveau pour créer un nouvel élève</p>
+        </field>
+    </record>
+
+    <menuitem
+        id="school_menu"
+        name="School"
+        sequence="0"/>
+
+    <menuitem
+        id="school_student_menu"
+        name="Student"
+        action="school_student_action"
+        parent="school_menu"
+        sequence="5"/>
+</odoo>
