@@ -16,4 +16,5 @@
     ],
     'auto_install': False,
     'application': False,
+    'sequence':0,
 }
