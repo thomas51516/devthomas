@@ -8,7 +8,7 @@
     'license': 'LGPL-3',
     'category': 'School',
     'depends': [
-        'base'
+        'base','mail'
     ],
     'data': [
         'views/student_view.xml',

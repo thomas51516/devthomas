@@ -4,9 +4,12 @@ from datetime import date
 class SchoolStudent(models.Model):
 
     _name = 'school.student'
+    _inherit = ['mail.thread','mail.activity.mixin']
     _description = 'Student'
 
-    name = fields.Char(string="Nom de famille", required=True)
+    name = fields.Char(string="Nom de famille", required=True, 
+    track_visibility='always'
+    )
     birth_date = fields.Date(string='Date de naissance', default=date.today())
     photo = fields.Binary(string="Photo")
     description = fields.Html()
@@ -34,13 +37,17 @@ class SchoolStudent(models.Model):
         ('3','Normal'),
         ('4','Elevé'),
         ('5','Très élevé')
-    ])
+    ], 
+    track_visibility='onchange'
+    )
 
     state = fields.Selection([
         ('preinscription', 'Préinscription'),
         ('inscription', 'Inscription'),
         ('abandonne','Abandonné'),
-    ], default="preinscription")
+    ], default="preinscription", 
+    track_visibility='onchange'
+    )
 
     def abandonner(self):
         for el in self:
