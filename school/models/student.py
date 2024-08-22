@@ -5,7 +5,7 @@ class SchoolStudent(models.Model):
     _name = 'school.student'
     _description = 'Student'
 
-    name = fields.Char(string="Nom de famille")
+    name = fields.Char(string="Nom de famille", required=True)
     birth_date = fields.Date(string='Date de naissance', default=date.today())
     photo = fields.Binary(string="Photo")
     description = fields.Html()
@@ -17,3 +17,10 @@ class SchoolStudent(models.Model):
     ])
     age = fields.Integer(string="Age")
     note = fields.Float(string="Note")
+    class_id = fields.Many2one(
+        'student.class',
+        string='Classe',
+    )
+
+    course_ids = fields.Many2many('school.course', string="Cours")
+    note_ids = fields.One2many('student.note', 'student_id')
