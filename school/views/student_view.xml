@@ -40,6 +40,7 @@
                             <field name="age"/>
                             <field name="note"/>
                             <field name="class_id"/>
+                            <field name="priority" widget="priority"/>
                         </group>
                     </group>                  
                     <notebook>
@@ -82,6 +83,11 @@
                 <field name="age"/>
                 <field name="note"/>
                 <field name="class_id"/>
+                <field name="state" widget="badge" 
+                decoration-info="state == 'preinscription'"
+                decoration-success="state == 'inscription'"
+                decoration-danger="state == 'abandonne'"
+                />
             </tree>
         </field>
     </record>

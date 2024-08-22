@@ -28,6 +28,14 @@ class SchoolStudent(models.Model):
     course_ids = fields.Many2many('school.course', string="Cours")
     note_ids = fields.One2many('student.note', 'student_id')
 
+    priority = fields.Selection([
+        ('1', 'Faible'),
+        ('2','Moyen'),
+        ('3','Normal'),
+        ('4','Elevé'),
+        ('5','Très élevé')
+    ])
+
     state = fields.Selection([
         ('preinscription', 'Préinscription'),
         ('inscription', 'Inscription'),
