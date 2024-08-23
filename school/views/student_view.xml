@@ -36,7 +36,9 @@
                             <field name="progression" 
                             widget="progressbar"
                             />
+                             <field name="date_start"/>
                             <button name="compute_progress" type="object" string="Faire progresser"/>
+                           
                         </group>
                         <group>
                             <field name="sexe" widget="radio"/>
@@ -122,6 +124,31 @@
                     </t>
                 </templates>
             </kanban>
+        </field>
+    </record>
+
+    <record id="school_student_search" model="ir.ui.view">
+        <field name="name">school.student.search</field>
+        <field name="model">school.student</field>
+        <field name="arch" type="xml">
+            <search string="Rechercher un élève">
+                <field name="name"/>
+                <field name="sexe"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <filter string="Masculin" name="sexe" domain="[('sexe','=','Masculin')]"/>
+                <filter string="Féminin" name="sexe" domain="[('sexe','=','Féminin')]"/>
+
+                <group expand="1" string="Group by">
+                    <filter string="Sexe" name="sexe" context="{'group_by':'sexe'}"/>
+                    <filter string="Classe" name="class_id" context="{'group_by':'class_id'}"/>
+                </group>
+
+                <searchpanel>
+                    <field name="sexe" icon="fa-user" string="Sexe" select="multi" enable_counters="1"/>
+                    <field name="class_id" icon="fa-graduation-cap" select="multi" enable_counters="1"/>
+                </searchpanel>
+            </search>
         </field>
     </record>
 

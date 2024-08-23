@@ -1,5 +1,5 @@
 from odoo import _, api, fields, models, tools
-from datetime import date
+from datetime import date, datetime
 
 class SchoolStudent(models.Model):
 
@@ -31,6 +31,8 @@ class SchoolStudent(models.Model):
         'student.class',
         string='Classe',
     )
+
+    date_start = fields.Datetime(string="Date et heure de début", default=datetime.now())
 
     course_ids = fields.Many2many('school.course', string="Cours")
     note_ids = fields.One2many('student.note', 'student_id')

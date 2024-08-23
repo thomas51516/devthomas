@@ -7,4 +7,22 @@ class StudentClass(models.Model):
 
     name = fields.Char(string="Nom de classe", required=True)
 
+    description = fields.Text()
+
     student_ids = fields.One2many('school.student', 'class_id')
+
+    student_count = fields.Integer(string="Total d'élèves", compute="_get_student_count")
+
+    def _get_student_count(self):
+        self.student_count = len(self.student_ids)
+
+
+    def student_list(self):
+        return {
+            'name':'Liste des élèves',
+            'domain':[('class_id','=', self.id)],
+            'res_model':'school.student',
+            'view_id':False,
+            'view_mode':'tree,form',
+            'type':'ir.actions.act_window',
+        }
