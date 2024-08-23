@@ -3,7 +3,7 @@
     <record id="school_student_action" model="ir.actions.act_window">
         <field name="name">Student</field>
         <field name="res_model">school.student</field>
-        <field name="view_mode">tree,form,kanban</field>
+        <field name="view_mode">kanban,tree,form</field>
         <field name="domain">[]</field>
         <field name="context">{}</field>
         <field name="help" type="html">
@@ -17,8 +17,10 @@
         <field name="arch" type="xml">
             <form string="Elève">
                 <header>
-                    <button name="inscrire" invisible="state in ['inscription','abandonne']" type="object" class="btn btn-success" string="Inscrire"/>
-                    <button name="abandonner" type="object" invisible="state == 'abandonne'" string="Abandonner"/>
+                    <button name="compute_inscription" invisible="state in ['inscription','abandonne','exclu']" class="btn btn-success" type="object" string="Inscritre"/>
+                    <button name="compute_abandonne" invisible="state in ['exclu','abandonne']" class="btn btn-warning" type="object" string="Abandonner"/>
+                    <button name="compute_excul" invisible="state in ['exclu','inscription']" type="object" class="btn btn-danger" string="Exclu"/>
+                    <button name="compute_preinscription" class="btn btn-primary" invisible="state != 'exclu'" type="object" string="Préinscription"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
@@ -29,31 +31,27 @@
                             <field name="birth_date"/>
                             <field name="description"/>
                             <field name="is_former_student"/>
-                            <field name="progession" widget="float_time" />
-                            <button name="compute_progression" class="btn btn-primary" type="object" string="Augmenter la progression"/>
-                            <button name="compute_pro" class="btn btn-primary" type="object" string="Diminuer la progression"/>
+                            <field name="email" widget="email"/>
+                            <field name="phone" widget="phone"/>
+                            <field name="progression" 
+                            widget="progressbar"
+                            />
+                            <button name="compute_progress" type="object" string="Faire progresser"/>
                         </group>
                         <group>
-                            <field name="sexe" 
-                            widget="radio"
-                            />
+                            <field name="sexe" widget="radio"/>
                             <field name="age"/>
                             <field name="note"/>
                             <field name="class_id"/>
                             <field name="priority" widget="priority"/>
+                            <field name="course_time" widget="float_time"/>
                         </group>
                     </group>                  
                     <notebook>
                         <page name="page_cours" string="Cours">
-                            <field name="course_ids">
-                                <kanban>
-                                    <templates>
-                                        <t t-name="kanban-box">
-                                            <field name="name"/>
-                                        </t>
-                                    </templates>
-                                </kanban>
-                            </field>
+                            <field name="course_ids" 
+                            widget="many2many_tags"
+                            />
                         </page>
                         <page name="page_notes" string="Note">
                            <field name="note_ids">
@@ -88,11 +86,6 @@
                 <field name="age"/>
                 <field name="note"/>
                 <field name="class_id"/>
-                <field name="state" widget="badge" 
-                decoration-info="state == 'preinscription'"
-                decoration-success="state == 'inscription'"
-                decoration-danger="state == 'abandonne'"
-                />
             </tree>
         </field>
     </record>
