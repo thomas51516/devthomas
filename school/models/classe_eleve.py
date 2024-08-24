@@ -24,5 +24,6 @@ class StudentClass(models.Model):
             'res_model':'school.student',
             'view_id':False,
             'view_mode':'tree,form',
+            'context':{'default_class_id': self.id},
             'type':'ir.actions.act_window',
         }

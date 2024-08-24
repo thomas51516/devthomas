@@ -18,7 +18,7 @@
             <form string="Classe">
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button name="student_list" type="object" class="oe_stat_button" icon="fa-list">
+                        <button name="student_list" type="object" class="oe_stat_button" icon="fa-list" context="{'default_name':'TATA145'}">
                             <field name="student_count" widget="statinfo" string="Liste de élèves"/>
                         </button>
                         <button name="student_list" type="object" class="oe_stat_button" icon="fa-list">

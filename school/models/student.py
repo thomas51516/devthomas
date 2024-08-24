@@ -15,7 +15,7 @@ class SchoolStudent(models.Model):
      default=date.today())
     photo = fields.Binary(string="Photo")
     description = fields.Html()
-    is_former_student = fields.Boolean(string="Est est ancien élève")
+    is_former_student = fields.Boolean(string="Est un ancien élève")
     sexe = fields.Selection([
         ('Masculin', 'Masculin'),
         ('Féminin','Féminin'),
@@ -23,9 +23,9 @@ class SchoolStudent(models.Model):
     ], 
     track_visibility='onchange'
     )
-    age = fields.Integer(string="Age", 
-    track_visibility='onchange',
-     store=True, compute="_compute_age")
+
+    age = fields.Integer(string="Age", track_visibility='onchange', compute="_compute_age")
+
     note = fields.Float(string="Note")
     class_id = fields.Many2one(
         'student.class',
@@ -61,28 +61,35 @@ class SchoolStudent(models.Model):
         ('exclu','Exclu')
     ], default='preinscription')
 
+    color = fields.Char(string="Couleur")
+
+    other_color = fields.Integer(string="Autre couleur")
+
     def compute_preinscription(self):
-        self.state = 'preinscription'
+        for eleve in self:
+            print('toto')
+            eleve.state = 'preinscription'
 
     def compute_excul(self):
-        self.state = 'exclu'
-
+        for eleve in self:
+            eleve.state = 'exclu'
 
     def compute_abandonne(self):
-        self.state = 'abandonne'
+        for eleve in self:
+            eleve.state = 'abandonne'
 
     def compute_inscription(self):
-        self.state = 'inscription'
+        for eleve in self:
+            eleve.state = 'inscription'
 
     def compute_progress(self):
         self.progression +=  5
 
-    @api.onchange('birth_date')
-    @api.depends('birth_date','age')
     def _compute_age(self):
-        age = 0
-        if self.birth_date:
-            today = date.today()
-            birth_date = self.birth_date
-            age = today.year - birth_date.year
-        self.age = age
+        for eleve in self:
+            age = 0
+            if eleve.birth_date:
+                today = date.today()
+                birth_date = eleve.birth_date
+                age = today.year - birth_date.year
+            eleve.age = age

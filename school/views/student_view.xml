@@ -3,9 +3,9 @@
     <record id="school_student_action" model="ir.actions.act_window">
         <field name="name">Student</field>
         <field name="res_model">school.student</field>
-        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_mode">tree,form,kanban</field>
         <field name="domain">[]</field>
-        <field name="context">{}</field>
+        <field name="context">{'default_name':'Toto123'}</field>
         <field name="help" type="html">
             <p>Cliquez sur nouveau pour créer un nouvel élève</p>
         </field>
@@ -38,7 +38,8 @@
                             />
                              <field name="date_start"/>
                             <button name="compute_progress" type="object" string="Faire progresser"/>
-                           
+                            <field name="color" widget="color"/>
+                            <field name="other_color" widget="color_picker"/>
                         </group>
                         <group>
                             <field name="sexe" widget="radio"/>
@@ -79,15 +80,29 @@
         <field name="name">school.student.tree</field>
         <field name="model">school.student</field>
         <field name="arch" type="xml">
-            <tree string="Elève">
+            <tree string="Elève" 
+           decoration-info="state == 'preinscription'"
+                decoration-danger="state == 'exclu'"
+                decoration-warning="state == 'abandonne'"
+                
+                decoration-success="state == 'inscription'"
+            >
                 <field name="name"/>
                 <field name="birth_date"/>
                 <field name="description"/>
                 <field name="is_former_student"/>
-                <field name="sexe"/>
-                <field name="age"/>
+                <field name="sexe" optional="hide"/>
+                <field name="age" optional="show"/>
                 <field name="note"/>
                 <field name="class_id"/>
+                <field name="state" widget="badge" 
+                decoration-info="state == 'preinscription'"
+                decoration-danger="state == 'exclu'"
+                decoration-warning="state == 'abandonne'"
+                
+                decoration-success="state == 'inscription'"
+                
+                />
             </tree>
         </field>
     </record>
@@ -138,7 +153,6 @@
                 <field name="phone"/>
                 <filter string="Masculin" name="sexe" domain="[('sexe','=','Masculin')]"/>
                 <filter string="Féminin" name="sexe" domain="[('sexe','=','Féminin')]"/>
-
                 <group expand="1" string="Group by">
                     <filter string="Sexe" name="sexe" context="{'group_by':'sexe'}"/>
                     <filter string="Classe" name="class_id" context="{'group_by':'class_id'}"/>
