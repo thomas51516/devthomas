@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="action_student_report" model="ir.actions.report">
+        <field name="name">Fiche d'inscription</field>
+        <field name="model">school.student</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">school.student_report_template</field>
+        <field name="report_file">school.student_report_template</field>
+        <field name="binding_model_id" ref="model_school_student"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="student_report_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h1 class="text-center">Fiche d'inscription</h1>
+                        <span t-field="o.birth_date"/>
+                        <br/>
+                        <t t-esc="o.birth_date"/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_carte_didentite" model="ir.actions.report">
+        <field name="name">Carte d'indentité</field>
+        <field name="model">school.student</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">school.student_card_template</field>
+        <field name="report_file">school.student_card_template</field>
+        <field name="binding_model_id" ref="model_school_student"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="student_card_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.basic_layout">
+                    <div class="page">
+                        <div class="container mt-5">
+                            <div class="id-card mx-auto">
+                                <div class="card">
+                                    <div class="card-header bg-primary text-white">
+                                        <h5 class="card-title mb-0">Carte d'identité</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <t t-if="o.photo">
+                                                    <img width="200" t-att-src="'/web/image/school.student/' + str(o.id) + '/photo'" alt="avatar" />
+                                                </t>
+                                                <t t-else=''>
+                                                    toto
+                                                </t>
+                                            </div>
+                                            <div class="col-7">
+                                                <p><strong>Nom :</strong><h4 t-field="o.name"/></p>
+                                                <p><strong>Date de naissance :</strong><span t-field="o.birth_date"/></p>
+                                                <p><strong>Sexe :</strong><span t-field="o.sexe"/></p>
+                                                <p><strong>Classe :</strong><span t-field="o.class_id.name"/></p>
+                                            </div>
+                                        </div>
+                                        <div class="mt-3">
+                                            <p><strong>Signature :</strong></p>
+                                            <div class="signature-box">
+                                                <span class="signature">Jean Dupont</span>
+                                            </div>
+                                            <p class="text-end mt-2"><small>Date de signature : <span id="signatureDate"></span></small></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

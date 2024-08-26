@@ -41,7 +41,7 @@ class SchoolStudent(models.Model):
     track_visibility='onchange'
     )
     phone = fields.Char(string="Téléphone", 
-    track_visibility='onchange'
+    track_visibility='onchange', default="92416645"
     )
 
     progression = fields.Float(string="Progression", default=23)
@@ -64,6 +64,8 @@ class SchoolStudent(models.Model):
     color = fields.Char(string="Couleur")
 
     other_color = fields.Integer(string="Autre couleur")
+
+    active = fields.Boolean(default=True)
 
     def compute_preinscription(self):
         for eleve in self:

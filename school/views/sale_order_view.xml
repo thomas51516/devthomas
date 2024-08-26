@@ -7,6 +7,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='payment_term_id']" position="before">
                 <field name="comfirmed_user_id"/>
+                <field name="city_id"/>
             </xpath>
         </field>
     </record>
@@ -21,4 +22,23 @@
             </xpath>
         </field>
     </record>
+
+    <record id="sale_city_action" model="ir.actions.act_window">
+        <field name="name">Ville</field>
+        <field name="res_model">sale.city</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p>Vide</p>
+            <i>Cliquez sur le bouton nouveau pour créer une ville  !!!</i>
+        </field>
+    </record>
+
+    <menuitem
+        id="sale_city_menu"
+        name="Ville"
+        action="sale_city_action"
+        parent="sale.product_menu_catalog"
+        sequence="50"/>
 </odoo>

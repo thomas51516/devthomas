@@ -15,6 +15,8 @@
         'views/student_class_view.xml',
         'views/school_course_view.xml',
         'views/sale_order_view.xml',
+        'data/student_data.xml',
+        'reports/student_report.xml',
         'security/ir.model.access.csv',
     ],
     'auto_install': False,
