@@ -19,8 +19,10 @@
                 <header>
                     <button name="compute_inscription" invisible="state in ['inscription','abandonne','exclu']" class="btn btn-success" type="object" string="Inscritre"/>
                     <button name="compute_abandonne" invisible="state in ['exclu','abandonne']" class="btn btn-warning" type="object" string="Abandonner"/>
-                    <button name="compute_excul" invisible="state in ['exclu','inscription']" type="object" class="btn btn-danger" string="Exclu"/>
+                    <button name="compute_excul" groups="school.admin_groups" invisible="state in ['exclu','inscription']" type="object" class="btn btn-danger" string="Exclu"/>
                     <button name="compute_preinscription" class="btn btn-primary" invisible="state != 'exclu'" type="object" string="Préinscription"/>
+                    <button name="%(create_student_action)d" type="action" string="Créer un élève"/>
+                    <button name="%(school_course_action)d" type="action" string="créer un cous"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
@@ -30,9 +32,10 @@
                     <group>
                         <group>
                             <field name="active" invisible="1"/>
+                            <field name="matricule"/>
                             <field name="name"/>
                             <field name="birth_date"/>
-                            <field name="description"/>
+                            <field name="description" groups="school.admin_groups"/>
                             <field name="is_former_student"/>
                             <field name="email" widget="email"/>
                             <field name="phone" widget="phone"/>
@@ -98,6 +101,9 @@
                 <field name="age" optional="show"/>
                 <field name="note"/>
                 <field name="class_id"/>
+                <field name="progression" widget="progressbar"/>
+                <field name="course_time" widget="float_time"/>
+                <field name="priority" widget="priority"/>
                 <field name="state" widget="badge" 
                 decoration-info="state == 'preinscription'"
                 decoration-danger="state == 'exclu'"

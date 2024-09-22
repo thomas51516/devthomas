@@ -15,6 +15,7 @@
     <menuitem
         id="school_course_menu"
         name="Cours"
+        groups="school.admin_groups"
         action="school_course_action"
         parent="school_menu"
         sequence="15"/>

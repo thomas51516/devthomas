@@ -5,10 +5,20 @@
             <field name="name">JUSTIN DUPONT</field>
             <field name="photo" type="base64" file="school/static/src/img/toto.jpeg"/>
         </record>
+        
         <record id="eleve_tata" model="school.student">
             <field name="name">FRANCOIS DU PUI</field>
             <field name="email">tata@exemple.com</field>
             <field name="photo" type="base64" file="school/static/src/img/tata.jpg"/>
         </record>
+
+        <record id="matricule_eleve" model="ir.sequence">
+            <field name="name">Student</field>
+            <field name="code">school.student</field>
+            <field name="active">True</field>
+            <field name="prefix">ST</field>
+            <field name="padding">3</field>
+        </record>
+        
     </data>
 </odoo>

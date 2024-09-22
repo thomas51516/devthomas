@@ -7,6 +7,7 @@ class SchoolStudent(models.Model):
     _inherit= ['mail.thread','mail.activity.mixin']
     _description = 'Student'
 
+    matricule = fields.Char(string="Matricule", readonly=True)
     name = fields.Char(string="Nom de famille", required=True, 
     track_visibility='onchange'
     )
@@ -66,6 +67,14 @@ class SchoolStudent(models.Model):
     other_color = fields.Integer(string="Autre couleur")
 
     active = fields.Boolean(default=True)
+
+    @api.model
+    def create(self, values):
+        values['matricule'] = self.env['ir.sequence'].next_by_code('school.student')
+
+        result = super().create(values)
+        
+        return result
 
     def compute_preinscription(self):
         for eleve in self:
